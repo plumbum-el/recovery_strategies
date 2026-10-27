@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+
+    <title>Лента стратегий восстановления</title>
+
+    <link
+        rel="stylesheet"
+        href="/recovery_strategies_static/styles.css"
+    >
+</head>
+
+<body class="feed-page">
+
+    <div class="mobile-wrapper">
+
+        <div class="status-bar light-text">
+            <span>09:41</span>
+            <span>📶 🔋</span>
+        </div>
+
+
+        <div class="content feed-container">
+
+            {% if recovery_strategy %}
+
+                <!-- Видео стратегии -->
+                <video
+                    class="feed-video"
+                    poster="{{ recovery_strategies_media_url(recovery_strategy.image_url, '/recovery_strategies_static/default_image.png') }}"
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    onerror="this.poster='/recovery_strategies_static/default_image.png'"
+                >
+                    <source
+                        src="{{ recovery_strategies_media_url(recovery_strategy.video_url, '/recovery_strategies_static/default_video.mp4') }}"
+                        type="video/mp4"
+                        onerror="
+                            this.onerror=null;
+                            this.src='/recovery_strategies_static/default_video.mp4';
+                            this.parentElement.load();
+                            this.parentElement.play();
+                        "
+                    >
+                </video>
+
+
+                <!-- Название и описание -->
+                <div class="feed-info">
+
+                    <h2 class="feed-title">
+                        {{ recovery_strategy.title }}
+                    </h2>
+
+                    <details class="feed-description">
+
+                        <summary>
+                            <span class="description-short">
+                                {{ recovery_strategy.short_description }}
+                            </span>
+
+                            <span class="more-label">
+                                Ещё
+                            </span>
+                        </summary>
+
+                        <div class="description-full">
+                            {{ recovery_strategy.short_description }}
+                        </div>
+
+                    </details>
+
+                </div>
+
+
+                <!-- Правая панель -->
+                <div class="feed-side-panel">
+
+                    <!-- Лайки -->
+                    <div class="feed-action">
+
+                        <svg
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                        </svg>
+
+                        <span>
+                            {{ likes_count }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- Время восстановления -->
+                    <div class="feed-parameter">
+
+                        <span class="parameter-name">
+                            Время
+                        </span>
+
+                        <span class="parameter-value">
+                            {{ recovery_strategy.estimated_time }}
+                        </span>
+
+                        <span class="parameter-unit">
+                            мин
+                        </span>
+
+                    </div>
+
+
+                    <!-- Стоимость обслуживания -->
+                    <div class="feed-parameter">
+
+                        <span class="parameter-name">
+                            Стоимость
+                        </span>
+
+                        <span class="parameter-value">
+                            ${{ recovery_strategy.cost }}
+                        </span>
+
+                        <span class="parameter-unit">
+                            /мес
+                        </span>
+
+                    </div>
+
+
+                    <!-- Следующая стратегия -->
+                    <a
+                        href="/recovery_strategies/feed?id={{ recovery_strategy.id }}&next=true"
+                        class="feed-next"
+                        title="Следующая стратегия"
+                    >
+                        ➜
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <!-- Удалённая или несуществующая стратегия -->
+                <div class="feed-not-found">
+                    <h2>Стратегия недоступна</h2>
+
+                    <p>
+                        Стратегия не существует или была удалена.
+                    </p>
+
+                    <a
+                        href="/recovery_strategies/feed"
+                        class="btn-primary"
+                    >
+                        Вернуться в ленту
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+
+            <a
+                href="/recovery_strategies/feed"
+                class="nav-item active"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"
+                    />
+                </svg>
+
+                <span>Лента</span>
+            </a>
+
+
+            <a
+                href="/recovery_strategies/draft"
+                class="nav-item"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                    />
+                </svg>
+
+                <span>Добавление</span>
+            </a>
+
+
+            <a
+                href="/recovery_strategies/catalog"
+                class="nav-item"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"
+                    />
+                </svg>
+
+                <span>Плитка</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+</body>
+</html>

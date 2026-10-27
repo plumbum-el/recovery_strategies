@@ -1,0 +1,1152 @@
+/* =========================================================
+   ОБЩИЕ НАСТРОЙКИ
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #121212;
+    color: #1a1a1a;
+}
+
+
+/* =========================================================
+   МОБИЛЬНЫЙ КОНТЕЙНЕР
+   ========================================================= */
+
+.mobile-wrapper {
+    position: relative;
+
+    width: 390px;
+    height: 844px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #f4f6f9;
+
+    border-radius: 36px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
+}
+
+
+/* =========================================================
+   ВЕРХНЯЯ СТРОКА
+   ========================================================= */
+
+.status-bar {
+    flex-shrink: 0;
+
+    width: 100%;
+    height: 44px;
+
+    padding: 0 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    z-index: 50;
+}
+
+.status-bar.dark-text {
+    color: #000000;
+}
+
+.status-bar.light-text {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    color: #ffffff;
+
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.75);
+}
+
+
+/* =========================================================
+   ОСНОВНОЙ КОНТЕНТ
+   ========================================================= */
+
+.content {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding-bottom: 82px;
+}
+
+
+/* =========================================================
+   НИЖНЯЯ НАВИГАЦИЯ
+   ========================================================= */
+
+.bottom-nav {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 66px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-top: 1px solid #e5e9f0;
+
+    z-index: 100;
+}
+
+.nav-item {
+    min-width: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 4px;
+
+    color: #8e8e93;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    text-decoration: none;
+}
+
+.nav-item.active {
+    color: #00a8e8;
+}
+
+.nav-item svg {
+    width: 21px;
+    height: 21px;
+
+    fill: currentColor;
+}
+
+
+/* =========================================================
+   ЗАГОЛОВКИ СТРАНИЦ
+   ========================================================= */
+
+.page-title {
+    padding: 13px 20px 15px;
+
+    color: #1a1a1a;
+
+    font-size: 21px;
+    font-weight: 750;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   ЛЕНТА
+   ========================================================= */
+
+.feed-page {
+    background: #000000;
+}
+
+.feed-page .content {
+    padding-bottom: 0;
+}
+
+.feed-container {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #000000;
+}
+
+
+/* Видео */
+
+.feed-video {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    background: #000000;
+}
+
+
+/* Затемнение нижней части видео */
+
+.feed-container::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 45%;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.80) 0%,
+        rgba(0, 0, 0, 0.45) 45%,
+        rgba(0, 0, 0, 0) 100%
+    );
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   ЛЕНТА — НАЗВАНИЕ И ОПИСАНИЕ
+   ========================================================= */
+
+.feed-info {
+    position: absolute;
+
+    left: 12px;
+    right: 91px;
+
+    /*
+       Нижняя навигация имеет высоту 66px.
+       Поэтому блок располагается выше неё.
+    */
+    bottom: 78px;
+
+    padding: 10px 11px;
+
+    background: rgba(0, 0, 0, 0.62);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    color: #ffffff;
+
+    z-index: 5;
+}
+
+.feed-title {
+    margin-bottom: 6px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.15;
+}
+
+
+/* =========================================================
+   ЛЕНТА — ОПИСАНИЕ В ДВЕ СТРОКИ + "ЕЩЁ"
+   ========================================================= */
+
+.feed-description {
+    color: #eeeeee;
+
+    font-size: 12px;
+
+    line-height: 1.35;
+}
+
+.feed-description summary {
+    list-style: none;
+
+    cursor: pointer;
+}
+
+.feed-description summary::-webkit-details-marker {
+    display: none;
+}
+
+.description-short {
+    overflow: hidden;
+
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    line-clamp: 2;
+}
+
+
+/* Кнопка "Ещё" */
+
+.more-label {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 3px 7px;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* Полное описание */
+
+.description-full {
+    display: none;
+
+    margin-top: 5px;
+
+    color: #eeeeee;
+
+    font-size: 12px;
+
+    line-height: 1.35;
+}
+
+
+/* После нажатия "Ещё" */
+
+.feed-description[open] .description-short {
+    display: none;
+}
+
+.feed-description[open] .description-full {
+    display: block;
+}
+
+.feed-description[open] .more-label {
+    font-size: 0;
+}
+
+.feed-description[open] .more-label::after {
+    content: "Скрыть";
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ЛЕНТА — ПРАВАЯ ПАНЕЛЬ
+   ЛАЙК -> ВРЕМЯ -> СТОИМОСТЬ -> СТРЕЛКА
+   ========================================================= */
+
+.feed-side-panel {
+    position: absolute;
+
+    right: 7px;
+
+    /*
+       Тоже поднимаем над нижней навигацией.
+    */
+    bottom: 78px;
+
+    width: 70px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    z-index: 6;
+}
+
+
+/* =========================================================
+   ЛАЙК
+   ========================================================= */
+
+.feed-action {
+    width: 70px;
+    height: 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2px;
+
+    background: rgba(0, 0, 0, 0.62);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 11px;
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.feed-action svg {
+    width: 24px;
+    height: 24px;
+}
+
+
+/* =========================================================
+   ЛЕНТА — ДВА ПОЛЯ ПО ТЕМЕ
+   ========================================================= */
+
+.feed-parameter {
+    width: 70px;
+    min-height: 51px;
+
+    padding: 6px 3px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 189, 157, 0.90);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 11px;
+
+    color: #ffffff;
+
+    text-align: center;
+}
+
+.parameter-name {
+    font-size: 8px;
+    font-weight: 600;
+
+    line-height: 1.05;
+}
+
+.parameter-value {
+    margin-top: 3px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    line-height: 1.05;
+}
+
+.parameter-unit {
+    margin-top: 2px;
+
+    font-size: 8px;
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   СТРЕЛКА СЛЕДУЮЩЕЙ СТРАТЕГИИ
+   ========================================================= */
+
+.feed-next {
+    width: 70px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 168, 232, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 11px;
+
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    transition: background 0.2s;
+}
+
+.feed-next:hover {
+    background: #0090c7;
+}
+
+
+/* =========================================================
+   СТРАНИЦА "ДОБАВЛЕНИЕ"
+   ========================================================= */
+
+.form-group {
+    padding: 0 20px 14px;
+}
+
+.form-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #333333;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.file-box {
+    padding: 10px 13px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #edf0f4;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.035);
+}
+
+.file-box img {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-name {
+    margin-bottom: 3px;
+
+    color: #8e8e93;
+
+    font-size: 12px;
+}
+
+.btn-select {
+    color: #00a8e8;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.form-input,
+.form-select {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    color: #1a1a1a;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-input:focus,
+.form-select:focus {
+    border-color: #00a8e8;
+}
+
+.form-textarea {
+    height: 70px;
+
+    resize: none;
+}
+
+
+/* =========================================================
+   ПЛИТКА — ФИЛЬТР
+   ========================================================= */
+
+.filter-box {
+    margin: 0 20px 18px;
+
+    padding: 15px 15px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #edf0f4;
+    border-radius: 14px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.045);
+}
+
+.filter-title {
+    color: #1a1a1a;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.filter-subtitle {
+    margin-top: 3px;
+    margin-bottom: 15px;
+
+    color: #8e8e93;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ПЛИТКА — ЧИСЛА ФИЛЬТРА
+   ========================================================= */
+
+.slider-values {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 2px 8px;
+}
+
+.slider-value {
+    min-width: 62px;
+
+    padding: 5px 10px;
+
+    background: #f4f6f9;
+
+    border-radius: 9px;
+
+    text-align: center;
+}
+
+.slider-value span {
+    display: block;
+
+    margin-bottom: 1px;
+
+    color: #8e8e93;
+
+    font-size: 8px;
+}
+
+.slider-value strong {
+    display: block;
+
+    color: #1a1a1a;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ПЛИТКА — ДВОЙНОЙ СЛАЙДЕР
+   ========================================================= */
+
+.double-slider {
+    position: relative;
+
+    width: 100%;
+    height: 34px;
+
+    margin: 0;
+}
+
+
+/* Одна общая шкала */
+
+.slider-track {
+    position: absolute;
+
+    top: 14px;
+    left: 8px;
+    right: 8px;
+
+    height: 6px;
+
+    background: #d8dde4;
+
+    border-radius: 999px;
+
+    z-index: 1;
+}
+
+
+/*
+   Два range накладываются друг на друга.
+   Визуально получается одна шкала
+   с двумя бегунками.
+*/
+
+.slider {
+    position: absolute;
+
+    top: 4px;
+    left: 0;
+
+    width: 100%;
+    height: 26px;
+
+    margin: 0;
+
+    background: transparent;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+
+/* Chrome / Edge */
+
+.slider::-webkit-slider-runnable-track {
+    height: 6px;
+
+    background: transparent;
+
+    border: none;
+}
+
+.slider::-webkit-slider-thumb {
+    width: 21px;
+    height: 21px;
+
+    margin-top: -7px;
+
+    background: #00a8e8;
+
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30);
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    pointer-events: auto;
+
+    cursor: pointer;
+}
+
+
+/* Firefox */
+
+.slider::-moz-range-track {
+    height: 6px;
+
+    background: transparent;
+
+    border: none;
+}
+
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+
+    background: #00a8e8;
+
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30);
+
+    pointer-events: auto;
+
+    cursor: pointer;
+}
+
+
+/* Нижние подписи min/max */
+
+.slider-limits {
+    margin: 0 3px 14px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: #8e8e93;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   КНОПКА "ПРИМЕНИТЬ"
+   ========================================================= */
+
+.filter-button {
+    min-width: 135px;
+
+    margin: 0 auto;
+
+    padding: 10px 20px;
+
+    display: block;
+
+    background: #00a8e8;
+
+    border: none;
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.filter-button:hover {
+    background: #0090c7;
+}
+
+
+/* =========================================================
+   ПЛИТКА — КАРТОЧКИ
+   ========================================================= */
+
+.grid-container {
+    padding: 0 20px 22px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.card-link {
+    min-width: 0;
+
+    color: inherit;
+
+    text-decoration: none;
+}
+
+.card-item {
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #edf0f4;
+    border-radius: 14px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.045);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.card-link:hover .card-item {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 13px rgba(0, 0, 0, 0.08);
+}
+
+.card-img {
+    width: 100%;
+    height: 100px;
+
+    margin-bottom: 8px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+}
+
+.card-title {
+    width: 100%;
+    min-height: 34px;
+
+    margin-bottom: 8px;
+
+    color: #1a1a1a;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.card-meta {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.card-time {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    background: #00bd9d;
+
+    border-radius: 14px;
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.card-likes {
+    color: #555555;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.card-price {
+    margin-top: 8px;
+
+    color: #222222;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ПУСТОЙ РЕЗУЛЬТАТ ФИЛЬТРАЦИИ
+   ========================================================= */
+
+.empty-result {
+    grid-column: 1 / -1;
+
+    padding: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #edf0f4;
+    border-radius: 12px;
+
+    color: #8e8e93;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   АДАПТАЦИЯ
+   ========================================================= */
+
+@media (max-width: 410px) {
+
+    body {
+        align-items: flex-start;
+    }
+
+    .mobile-wrapper {
+        width: 100vw;
+        max-width: 390px;
+
+        border-radius: 0;
+    }
+}
+
+/* =========================================================
+   ЛАБОРАТОРНАЯ 2 — НОВЫЕ ЭЛЕМЕНТЫ
+   ========================================================= */
+
+
+/* =========================================================
+   КНОПКИ "ДАЛЕЕ" И "ОПУБЛИКОВАТЬ"
+   ========================================================= */
+
+.btn-primary {
+    width: 100%;
+
+    padding: 12px 18px;
+
+    display: block;
+
+    background: #00a8e8;
+
+    border: none;
+    border-radius: 10px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #0090c7;
+}
+
+
+/* =========================================================
+   КНОПКА ЛОГИЧЕСКОГО УДАЛЕНИЯ
+   ========================================================= */
+
+.delete-button { margin-top: 9px; width: 100%; cursor: pointer; }
+
+/* =========================================================
+   ССЫЛКА ВНУТРИ КАРТОЧКИ
+   ========================================================= */
+
+.card-item > .card-link {
+    width: 100%;
+    min-width: 0;
+
+    display: block;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   НЕДОСТУПНАЯ / УДАЛЁННАЯ СТРАТЕГИЯ
+   ========================================================= */
+
+.feed-not-found {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: calc(100% - 40px);
+
+    transform: translate(-50%, -50%);
+
+    padding: 22px 18px;
+
+    background: rgba(0, 0, 0, 0.72);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    color: #ffffff;
+
+    text-align: center;
+
+    z-index: 10;
+}
+
+.feed-not-found h2 {
+    margin-bottom: 8px;
+
+    color: #ffffff;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.feed-not-found p {
+    margin-bottom: 16px;
+
+    color: #e5e5e5;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+
+
+.form-input[readonly] {
+    background: #f1f3f6;
+    color: #666666;
+
+    cursor: default;
+}
