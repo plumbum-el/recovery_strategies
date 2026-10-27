@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+
+    <title>Стратегии восстановления</title>
+
+    <link
+        rel="stylesheet"
+        href="/recovery_strategies_static/styles.css"
+    >
+</head>
+
+<body>
+
+    <div class="mobile-wrapper">
+
+        <!-- Верхняя строка -->
+        <div class="status-bar dark-text">
+            <span>09:41</span>
+            <span>📶 🔋</span>
+        </div>
+
+
+        <div class="content">
+
+            <h1 class="page-title">
+                Стратегии восстановления
+            </h1>
+
+
+            <!-- =====================================================
+                 ПОИСК И ФИЛЬТРАЦИЯ
+                 ===================================================== -->
+
+            <form
+                class="filter-box"
+                action="/recovery_strategies/catalog"
+                method="get"
+            >
+
+                <!-- Поиск -->
+                <div class="search-box">
+
+                    <label class="form-label">
+                        Поиск стратегии
+                    </label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-input"
+                        placeholder="Введите название"
+                        value="{{ search }}"
+                    >
+
+                </div>
+
+
+                <!-- Фильтрация по времени -->
+                <div class="filter-title">
+                    Время восстановления
+                </div>
+
+                <div class="filter-subtitle">
+                    Выберите диапазон времени, мин
+                </div>
+
+
+                <!-- Выбранные значения -->
+                <div class="slider-values">
+
+                    <div class="slider-value">
+                        <span>от</span>
+
+                        <strong id="min-value">
+                            {{ selected_min_time }}
+                        </strong>
+                    </div>
+
+                    <div class="slider-value">
+                        <span>до</span>
+
+                        <strong id="max-value">
+                            {{ selected_max_time }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <!-- Двойной слайдер -->
+                <div class="double-slider">
+
+                    <div class="slider-track"></div>
+
+                    <input
+                        type="range"
+                        class="slider slider-min"
+                        name="min_time"
+                        min="{{ absolute_min_time }}"
+                        max="{{ absolute_max_time }}"
+                        value="{{ selected_min_time }}"
+                        step="1"
+                        oninput="document.getElementById('min-value').textContent=this.value"
+                    >
+
+                    <input
+                        type="range"
+                        class="slider slider-max"
+                        name="max_time"
+                        min="{{ absolute_min_time }}"
+                        max="{{ absolute_max_time }}"
+                        value="{{ selected_max_time }}"
+                        step="1"
+                        oninput="document.getElementById('max-value').textContent=this.value"
+                    >
+
+                </div>
+
+
+                <!-- Границы диапазона -->
+                <div class="slider-limits">
+
+                    <span>
+                        {{ absolute_min_time }} мин
+                    </span>
+
+                    <span>
+                        {{ absolute_max_time }} мин
+                    </span>
+
+                </div>
+
+
+                <!-- Кнопка поиска / фильтрации -->
+                <button
+                    type="submit"
+                    class="filter-button"
+                >
+                    Применить
+                </button>
+
+            </form>
+
+
+            <!-- =====================================================
+                 КАРТОЧКИ СТРАТЕГИЙ
+                 ===================================================== -->
+
+            <div class="grid-container">
+
+                {% for recovery_strategy in recovery_strategies %}
+
+                    <div class="card-item">
+
+                        <!-- Основная часть карточки -->
+                        <a
+                            href="/recovery_strategies/feed?id={{ recovery_strategy.id }}"
+                            class="card-link"
+                        >
+
+                            <!-- Изображение -->
+                            <img
+                                src="{{ recovery_strategy.image_url or '/recovery_strategies_static/default_image.png' }}"
+                                alt="{{ recovery_strategy.title }}"
+                                class="card-img"
+                                onerror="this.onerror=null; this.src='/recovery_strategies_static/default_image.png';"
+                            >
+
+
+                            <!-- Название -->
+                            <div class="card-title">
+                                {{ recovery_strategy.title }}
+                            </div>
+
+
+                            <!-- Время и лайки -->
+                            <div class="card-meta">
+
+                                <span class="card-time">
+                                    {{ recovery_strategy.estimated_time }} мин
+                                </span>
+
+                                <span class="card-likes">
+                                    ♡ {{ recovery_strategy.likes_count }}
+                                </span>
+
+                            </div>
+
+
+                            <!-- Стоимость -->
+                            <div class="card-price">
+                                ${{ recovery_strategy.cost }}/мес
+                            </div>
+
+                        </a>
+
+
+                        <!-- =================================================
+                             ЛОГИЧЕСКОЕ УДАЛЕНИЕ
+                             ================================================= -->
+
+                        <form
+                            action="/recovery_strategies/delete"
+                            method="post"
+                            class="delete-form"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="id"
+                                value="{{ recovery_strategy.id }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn-primary delete-button"
+                            >
+                                Удалить
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                {% else %}
+
+                    <div class="empty-result">
+                        По вашему запросу стратегии не найдены
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================================
+             НИЖНЯЯ НАВИГАЦИЯ
+             ========================================================= -->
+
+        <nav class="bottom-nav">
+
+            <!-- Лента -->
+            <a
+                href="/recovery_strategies/feed"
+                class="nav-item"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"
+                    />
+                </svg>
+
+                <span>Лента</span>
+            </a>
+
+
+            <!-- Добавление -->
+            <a
+                href="/recovery_strategies/draft"
+                class="nav-item"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                    />
+                </svg>
+
+                <span>Добавление</span>
+            </a>
+
+
+            <!-- Плитка -->
+            <a
+                href="/recovery_strategies/catalog"
+                class="nav-item active"
+            >
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"
+                    />
+                </svg>
+
+                <span>Плитка</span>
+            </a>
+
+        </nav>
+
+    </div>
+
+</body>
+</html>

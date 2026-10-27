@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=390, initial-scale=1.0">
+    <title>Добавление стратегии восстановления</title>
+    <link rel="stylesheet" href="/recovery_strategies_static/styles.css">
+</head>
+<body>
+    <div class="mobile-wrapper">
+        <div class="status-bar dark-text">
+            <span>09:41</span>
+            <span>📶 🔋</span>
+        </div>
+
+        <div class="content">
+            <h1 class="page-title">Добавление стратегии</h1>
+
+            {% if recovery_strategy %}
+
+            <!-- Этап 2: публикация черновика -->
+
+            <div class="form-group">
+                <label class="form-label">Изображение стратегии</label>
+                <div class="file-box">
+                    <img
+                        src="{{ recovery_strategy.image_url or '/recovery_strategies_static/default_image.png' }}"
+                        alt="{{ recovery_strategy.title }}"
+                        onerror="this.src='/recovery_strategies_static/default_image.png'"
+                    >
+                    <div class="file-info">
+                        <div class="file-name">Изображение стратегии</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Видео стратегии</label>
+                <div class="file-box">
+                    <img
+                        src="{{ recovery_strategy.image_url or '/recovery_strategies_static/default_image.png' }}"
+                        alt="Предпросмотр видео"
+                        onerror="this.src='/recovery_strategies_static/default_image.png'"
+                    >
+                    <div class="file-info">
+                        <div class="file-name">Видео стратегии</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Название стратегии</label>
+                <input
+                    type="text"
+                    class="form-input"
+                    value="{{ recovery_strategy.title }}"
+                    readonly
+                >
+            </div>
+
+            <form action="/recovery_strategies/draft/publish" method="post">
+
+                <div class="form-group">
+                    <label class="form-label">Время восстановления (мин)</label>
+                    <input
+                        type="number"
+                        name="estimated_time"
+                        class="form-input"
+                        value="{{ recovery_strategy.estimated_time if recovery_strategy.estimated_time is not none else '' }}"
+                        min="0"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Стоимость обслуживания ($/мес)</label>
+                    <input
+                        type="number"
+                        name="cost"
+                        class="form-input"
+                        value="{{ recovery_strategy.cost if recovery_strategy.cost is not none else '' }}"
+                        min="0"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Краткое описание (необязательно)</label>
+                    <textarea
+                        name="short_description"
+                        class="form-input form-textarea"
+                    >{{ recovery_strategy.short_description or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-primary">
+                        Опубликовать
+                    </button>
+                </div>
+            </form>
+
+            {% else %}
+
+            <!-- Этап 1: создание черновика -->
+
+            <form action="/recovery_strategies/draft/create" method="post">
+
+                <div class="form-group">
+                    <label class="form-label">Изображение стратегии</label>
+                    <div class="file-box">
+                        <img
+                            src="/recovery_strategies_static/default_image.png"
+                            alt="Изображение по умолчанию"
+                        >
+                        <div class="file-info">
+                            <div class="file-name">Файл не выбран</div>
+                            <div class="btn-select">Выбрать файл</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Видео стратегии</label>
+                    <div class="file-box">
+                        <img
+                            src="/recovery_strategies_static/default_image.png"
+                            alt="Видео по умолчанию"
+                        >
+                        <div class="file-info">
+                            <div class="file-name">Файл не выбран</div>
+                            <div class="btn-select">Выбрать файл</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Название стратегии</label>
+                    <input
+                        type="text"
+                        name="title"
+                        class="form-input"
+                        placeholder="Введите название"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-primary">
+                        Далее
+                    </button>
+                </div>
+            </form>
+
+            {% endif %}
+        </div>
+
+        <!-- Нижняя навигация -->
+
+        <nav class="bottom-nav">
+            <a href="/recovery_strategies/feed" class="nav-item">
+                <svg viewBox="0 0 24 24">
+                    <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                </svg>
+                <span>Лента</span>
+            </a>
+
+            <a href="/recovery_strategies/draft" class="nav-item active">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                </svg>
+                <span>Добавление</span>
+            </a>
+
+            <a href="/recovery_strategies/catalog" class="nav-item">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4zm6 6h4v-4h-4v4z"/>
+                </svg>
+                <span>Плитка</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html>
