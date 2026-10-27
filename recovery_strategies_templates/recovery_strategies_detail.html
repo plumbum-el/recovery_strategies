@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ recovery_strategy.title }}</title>
+<link rel="stylesheet" href="/recovery_strategies_static/styles.css"></head>
+<body><div class="mobile-wrapper"><div class="content" style="padding:20px;overflow-y:auto">
+<h1 class="page-title">Карточка стратегии</h1>
+<h2>{{ recovery_strategy.title }}</h2>
+<img src="{{ recovery_strategies_media_url(recovery_strategy.image_url, '/recovery_strategies_static/default_image.png') }}" alt="Изображение" style="width:100%;max-height:220px;object-fit:contain">
+<video controls playsinline style="width:100%;max-height:260px" poster="{{ recovery_strategies_media_url(recovery_strategy.image_url, '/recovery_strategies_static/default_image.png') }}">
+<source src="{{ recovery_strategies_media_url(recovery_strategy.video_url, '/recovery_strategies_static/default_video.mp4') }}"></video>
+<p><b>Время восстановления:</b> {{ recovery_strategy.estimated_time if recovery_strategy.estimated_time is not none else '—' }} мин</p>
+<p><b>Стоимость:</b> {{ recovery_strategy.cost if recovery_strategy.cost is not none else '—' }} $/мес</p>
+<p><b>Описание:</b> {{ recovery_strategy.short_description or 'Не указано' }}</p>
+<p><b>Лайков:</b> {{ likes_count }}</p>
+<a href="/recovery_strategies/catalog" class="btn-primary" style="display:block;text-align:center;padding:12px">Вернуться в плитку</a>
+</div></div></body></html>
